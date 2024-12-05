@@ -1,0 +1,6 @@
+@RestService.Trinity_HostAddress = http://localhost:5023
+
+GET {{RestService.Trinity_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
