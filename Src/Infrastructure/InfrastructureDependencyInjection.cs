@@ -1,4 +1,5 @@
 ﻿using Aplication.Interfaces.Infrastructure;
+using Core.Entities;
 using Infrastructure.Service.Mongo.Database.Context;
 using Infrastructure.Service.Mongo.Database.Repository;
 using Microsoft.Extensions.DependencyInjection;
@@ -10,7 +11,7 @@ namespace Infrastructure
         #region Mongo
         public static IServiceCollection Infrastructure(this IServiceCollection services)
         {
-            services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IUserRepository<User>, UserRepository<User>>();
 
             return services;
         }

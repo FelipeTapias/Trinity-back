@@ -5,7 +5,7 @@ using MongoDB.Driver;
 
 namespace Infrastructure.Service.Mongo.Database.Repository
 {
-    public class UserRepository: IUserRepository
+    public class UserRepository<TEntity>: IUserRepository<TEntity> where TEntity : class
     {
         private readonly IMongoCollection<BsonDocument> _collection;
 
@@ -13,24 +13,12 @@ namespace Infrastructure.Service.Mongo.Database.Repository
             => _collection = context.GetCollection();
 
 
-        public async Task<string> InsertDocument()
+        public async Task<string> InsertDocument(TEntity entity)
         {
-            User user = new()
-            {
-                Name = "Felipe",
-                Age = 22
-            };
-
-            BsonDocument doc = user.ToBsonDocument();
+            BsonDocument doc = entity.ToBsonDocument();
             await _collection.InsertOneAsync(doc);
 
             return doc["_id"].AsObjectId.ToString();
         }
-    }
-
-    public class User 
-    {
-        public string Name { get; set; }
-        public int Age { get; set; }
     }
 }

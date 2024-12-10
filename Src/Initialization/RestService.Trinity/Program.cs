@@ -17,7 +17,7 @@ builder.Services
     .RegisterMongo(configuration["AppSettings:CollectionName"],
                    configuration["AppSettings:DatabaseName"],      
                    configuration["AppSettings:ConnectionStringMongo"])
-    .Aplication();
+    .Application();
 
 var app = builder.Build();
 
