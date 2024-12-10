@@ -3,6 +3,8 @@ using Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
+IConfiguration configuration = builder.Configuration;
+
 // Add services to the container.
 
 builder.Services.AddControllers();
@@ -12,7 +14,10 @@ builder.Services.AddSwaggerGen();
 
 builder.Services
     .Infrastructure()
-    .Aplication();
+    .RegisterMongo(configuration["AppSettings:CollectionName"],
+                   configuration["AppSettings:DatabaseName"],      
+                   configuration["AppSettings:ConnectionStringMongo"])
+    .Application();
 
 var app = builder.Build();
 
