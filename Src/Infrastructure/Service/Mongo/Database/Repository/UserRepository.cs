@@ -1,6 +1,7 @@
 ﻿using Aplication.Interfaces.Infrastructure;
 using Infrastructure.Service.Mongo.Database.Context;
 using MongoDB.Bson;
+using MongoDB.Bson.Serialization;
 using MongoDB.Driver;
 
 namespace Infrastructure.Service.Mongo.Database.Repository
@@ -19,6 +20,50 @@ namespace Infrastructure.Service.Mongo.Database.Repository
             await _collection.InsertOneAsync(doc);
 
             return doc["_id"].AsObjectId.ToString();
+        }
+
+        public async Task<IEnumerable<TEntity>> GetAllAsync() 
+        { 
+            IEnumerable<BsonDocument> result = await _collection.Find(new BsonDocument()).ToListAsync();
+
+            IEnumerable<TEntity> entities = result.Select(doc => {
+                doc.Remove("_id");
+                return BsonSerializer.Deserialize<TEntity>(doc);
+            });
+
+            return entities;
+        }
+
+        public async Task<TEntity> GetById(string id) 
+        {
+            FilterDefinition<BsonDocument> filter = Builders<BsonDocument>.Filter.Eq("_id", new ObjectId(id));
+
+            BsonDocument result = await _collection.Find(filter).FirstOrDefaultAsync();
+
+            result.Remove("_id");
+
+            return BsonSerializer.Deserialize<TEntity>(result);
+        }
+
+        public async Task<string> DeleteById(string id)
+        {
+            FilterDefinition<BsonDocument> filter = Builders<BsonDocument>.Filter.Eq("_id", new ObjectId(id));
+
+            await _collection.DeleteOneAsync(filter);
+
+            return id;
+        }
+
+        public async Task<string> UpdateDocument(string id, TEntity entity)
+        {
+            FilterDefinition<BsonDocument> filter = Builders<BsonDocument>.Filter.Eq("_id", new ObjectId(id));
+
+            BsonDocument doc = entity.ToBsonDocument();
+            doc["_id"] = ObjectId.Parse(id);
+
+            await _collection.ReplaceOneAsync(filter, doc);
+
+            return id;
         }
     }
 }
