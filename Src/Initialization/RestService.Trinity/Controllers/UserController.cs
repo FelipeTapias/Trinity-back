@@ -16,7 +16,6 @@ namespace RestService.Trinity.Controllers
         {
             _logger = logger;
             _userService = userService;
-
         }
 
         [HttpPost(Name = "PostUser")]
@@ -35,8 +34,8 @@ namespace RestService.Trinity.Controllers
             return await _userService.GetAllUser();
         }
 
-        [HttpGet("{id}", Name = "GetUserById")]
-        public async Task<User> GetUserById(string id) 
+        [HttpGet("id", Name = "GetUserById")]
+        public async Task<User> GetUserById(string id)
         {
             _logger.LogInformation($"Obteneindo usuario con id: {id}");
             return await _userService.GetUserById(id);
@@ -55,6 +54,13 @@ namespace RestService.Trinity.Controllers
             _logger.LogInformation($"Actualizando usuario con id: {id}");
             await _userService.UpdateUserById(id, user);
             return id;
+        }
+
+        [HttpGet("idDocument", Name = "GetUserByIdDocument")]
+        public async Task<User> GetUserByIdDocument(int idDocument)
+        {
+            _logger.LogInformation($"Obteniendo usuario con IdDocumento: {idDocument}");
+            return await _userService.GetUserByIdDocument(idDocument);
         }
     }
 }
