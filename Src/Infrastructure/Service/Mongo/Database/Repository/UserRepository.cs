@@ -65,5 +65,30 @@ namespace Infrastructure.Service.Mongo.Database.Repository
 
             return id;
         }
+
+        public async Task<TEntity> GetByIdDocument(int idDocument)
+        {
+            FilterDefinition<BsonDocument> filter = Builders<BsonDocument>.Filter.Eq("IdDocument", idDocument);
+
+            BsonDocument result = await _collection.Find(filter).FirstOrDefaultAsync();
+
+            result.Remove("_id");
+
+            return BsonSerializer.Deserialize<TEntity>(result);
+        }
+
+        public async Task<bool> IdDocumentExist(int idDocument)
+        {
+            FilterDefinition<BsonDocument> filter = Builders<BsonDocument>.Filter.Eq("IdDocument", idDocument);
+
+            return await _collection.CountDocumentsAsync(filter) > 0;
+        }
+
+        public async Task<bool> DocumentExist(string id)
+        {
+            FilterDefinition<BsonDocument> filter = Builders<BsonDocument>.Filter.Eq("_id", new ObjectId(id));
+
+            return await _collection.CountDocumentsAsync(filter) > 0;
+        }
     }
 }

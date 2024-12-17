@@ -13,3 +13,4 @@
 | Usuario | Fecha | Detalle del Cambio | Versión |
 |---------|-------|--------------------|---------|
 | Anfeta | 2024/12/16  | Crud de usuario completo y se implementa serilog | 1.0.0
+| Anfeta | 2024/12/16  | Se crean reglas de negocio para el crud | 1.0.0

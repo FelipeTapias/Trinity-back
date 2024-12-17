@@ -7,5 +7,8 @@
         Task<TEntity> GetById(string id);
         Task<string> DeleteById(string id);
         Task<string> UpdateDocument(string id, TEntity entity);
+        Task<TEntity> GetByIdDocument(int idDocument);
+        Task<bool> IdDocumentExist(int idDocument);
+        Task<bool> DocumentExist(string id);
     }
 }
