@@ -7,17 +7,20 @@ namespace Aplication.Service
 {
     public class UserService: IUserService
     {
-        private readonly ILogger<UserService> _logger;
         private readonly IUserRepository<User> _repository;
-        public UserService(ILogger<UserService> logger, IUserRepository<User> repository) 
+        public UserService(IUserRepository<User> repository) 
         {
-            _logger = logger;
             _repository = repository;
         }
 
-        public async Task<string> CreateUser(User user)
-        {
-            return await _repository.InsertDocument(user);
-        }
+        public async Task<string> CreateUser(User user) => await _repository.InsertDocument(user);
+
+        public async Task<IEnumerable<User>> GetAllUser() => await _repository.GetAllAsync();
+
+        public async Task<User> GetUserById(string id) => await _repository.GetById(id);
+
+        public async Task<string> DeleteUserById(string id) => await _repository.DeleteById(id);
+        public async Task<string> UpdateUserById(string id, User user) => await _repository.UpdateDocument(id, user);
+        
     }
 }
