@@ -13,7 +13,6 @@ namespace Infrastructure.Service.Mongo.Database.Repository
         public UserRepository(GenericContext context) 
             => _collection = context.GetCollection();
 
-
         public async Task<string> InsertDocument(TEntity entity)
         {
             BsonDocument doc = entity.ToBsonDocument();
