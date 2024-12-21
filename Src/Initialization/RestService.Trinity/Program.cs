@@ -24,8 +24,10 @@ builder.Host
 builder.Services
     .Infrastructure()
     .RegisterMongo(configuration["AppSettings:CollectionName"],
-                   configuration["AppSettings:DatabaseName"],      
+                   configuration["AppSettings:DatabaseName"],
                    configuration["AppSettings:ConnectionStringMongo"])
+    .RegisterRedisCache(configuration["AppSettings:ConnectionStringRedisCache"],
+                        int.Parse(configuration["AppSettings:dbNumberRedisCache"]))
     .Application();
 
 var app = builder.Build();

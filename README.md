@@ -4,8 +4,6 @@
 - [Pasos creación Plantilla-Andamio](#pasos-creación-plantila-andamio)
 - [Infraestuctura](#infraestructura)
 - [Control de cambios](#control-de-cambios)
-
-
 ---
 
 ## Pasos creación Plantila-Andamio
@@ -26,11 +24,13 @@ E1 --> |echo > Directory.Build y echo > Directory.Packages| E2[Esto sigue...]
 ## Infraestructura
  - .Net8
  - MongoDB
+ - RedisCache
 
 ## Control de cambios
 | Nombre editor | Fecha actualizacion |
 |---------------|---------------------|
 | Anfeta        | 2024/12/04          |
 | Anfeta        | 2024/12/16          |
+| Anfeta        | 2024/12/20          |
 
 [🔙 Contenido](#contenido) 

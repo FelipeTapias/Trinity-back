@@ -11,7 +11,6 @@ namespace RestService.Trinity.Controllers
         private readonly ILogger<UserController> _logger;
         private readonly IUserService _userService;
 
-
         public UserController(ILogger<UserController> logger, IUserService userService)
         {
             _logger = logger;
