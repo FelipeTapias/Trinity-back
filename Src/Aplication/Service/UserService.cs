@@ -81,6 +81,14 @@ namespace Aplication.Service
             return await _repository.GetByIdDocument(idDocument);
         } 
 
+        public async Task<string> GetIdByIdDocument(int idDocument)
+        {
+            if(!await UserIdDocumentExist(idDocument))
+                throw new Exception($"Usuario con idDocument {idDocument} no existe");
+
+            return await _repository.GetIdByIdDocument(idDocument);
+        }
+
         private async Task<bool> UserIdDocumentExist(int idDocument) => await _repository.IdDocumentExist(idDocument);
 
         private async Task<bool> UserIdExist(string id) => await _repository.DocumentExist(id);

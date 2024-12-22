@@ -10,5 +10,6 @@
         Task<TEntity> GetByIdDocument(int idDocument);
         Task<bool> IdDocumentExist(int idDocument);
         Task<bool> DocumentExist(string id);
+        Task<string> GetIdByIdDocument(int idDocument);
     }
 }

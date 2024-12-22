@@ -76,6 +76,16 @@ namespace Infrastructure.Service.Mongo.Database.Repository
             return BsonSerializer.Deserialize<TEntity>(result);
         }
 
+        public async Task<string> GetIdByIdDocument(int idDocument)
+        {
+            FilterDefinition<BsonDocument> filter = Builders<BsonDocument>.Filter.Eq("IdDocument", idDocument);
+            ProjectionDefinition<BsonDocument> projection = Builders<BsonDocument>.Projection.Include("_id");
+
+            BsonDocument result = await _collection.Find(filter).Project(projection).FirstOrDefaultAsync();
+
+            return result["_id"].ToString();
+        }
+
         public async Task<bool> IdDocumentExist(int idDocument)
         {
             FilterDefinition<BsonDocument> filter = Builders<BsonDocument>.Filter.Eq("IdDocument", idDocument);
