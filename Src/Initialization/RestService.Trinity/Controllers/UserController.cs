@@ -17,7 +17,7 @@ namespace RestService.Trinity.Controllers
             _userService = userService;
         }
 
-        [HttpPost(Name = "PostUser")]
+        [HttpPost("CreateUser", Name = "PostUser")]
         public async Task<string> Post(User user)
         {
             _logger.LogInformation("Creando el usuario");
@@ -26,28 +26,28 @@ namespace RestService.Trinity.Controllers
             return idReturn;
         }
 
-        [HttpGet(Name = "GetAllUser")]
+        [HttpGet("GetAllUsers", Name = "GetAllUsers")]
         public async Task<IEnumerable<User>> GetAllUser()
         {
             _logger.LogInformation("Obteniendo todos los usuarios");
             return await _userService.GetAllUser();
         }
 
-        [HttpGet("id", Name = "GetUserById")]
-        public async Task<User> GetUserById(string id)
+        [HttpGet("GetUserById", Name = "GetUserById")]
+        public async Task<User> GetUserById([FromQuery] string id)
         {
             _logger.LogInformation($"Obteneindo usuario con id: {id}");
             return await _userService.GetUserById(id);
         }
 
-        [HttpDelete("{id}", Name = "DeleteUserById")]
-        public async Task<string> DeleteUserById(string id)
+        [HttpDelete("DeleteUserById", Name = "DeleteUserById")]
+        public async Task<string> DeleteUserById([FromQuery] string id)
         {
             _logger.LogInformation($"Eliminando usuario con id: {id}");
             return await _userService.DeleteUserById(id);
         }
 
-        [HttpPut(Name = "PutUserById")]
+        [HttpPut("EditUserById", Name = "EditUserById")]
         public async Task<string> UpdateUserById(string id, User user)
         {
             _logger.LogInformation($"Actualizando usuario con id: {id}");
@@ -55,11 +55,18 @@ namespace RestService.Trinity.Controllers
             return id;
         }
 
-        [HttpGet("idDocument", Name = "GetUserByIdDocument")]
-        public async Task<User> GetUserByIdDocument(int idDocument)
+        [HttpGet("GetUserByIdDocument", Name = "GetUserByIdDocument")]
+        public async Task<User> GetUserByIdDocument([FromQuery] int idDocument)
         {
             _logger.LogInformation($"Obteniendo usuario con IdDocumento: {idDocument}");
             return await _userService.GetUserByIdDocument(idDocument);
+        }
+
+        [HttpGet("GetIdByIdDocument", Name = "GetIdByIdDocument")]
+        public async Task<string> GetIdByIdDocument([FromQuery] int idDocument)
+        {
+            _logger.LogInformation($"Obteniendo id con IdDocumento: {idDocument}");
+            return await _userService.GetIdByIdDocument(idDocument);
         }
     }
 }
