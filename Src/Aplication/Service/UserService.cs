@@ -17,6 +17,8 @@ namespace Aplication.Service
             if (await UserIdDocumentExist(user.IdDocument))
                 throw new Exception($"Usuario con documento {user.IdDocument} ya existe");
 
+            user.IdUser = Guid.NewGuid().ToString();
+
             string userId = await _repository.InsertDocument(user);
 
             if (!string.IsNullOrEmpty(userId))
@@ -73,7 +75,7 @@ namespace Aplication.Service
             return userId;
         }
 
-        public async Task<User> GetUserByIdDocument(int idDocument) 
+        public async Task<User> GetUserByIdDocument(string idDocument) 
         {
             if (!await UserIdDocumentExist(idDocument))
                 throw new Exception($"Usuario con documento {idDocument} no encontrado");
@@ -81,7 +83,7 @@ namespace Aplication.Service
             return await _repository.GetByIdDocument(idDocument);
         } 
 
-        public async Task<string> GetIdByIdDocument(int idDocument)
+        public async Task<string> GetIdByIdDocument(string idDocument)
         {
             if(!await UserIdDocumentExist(idDocument))
                 throw new Exception($"Usuario con idDocument {idDocument} no existe");
@@ -89,7 +91,7 @@ namespace Aplication.Service
             return await _repository.GetIdByIdDocument(idDocument);
         }
 
-        private async Task<bool> UserIdDocumentExist(int idDocument) => await _repository.IdDocumentExist(idDocument);
+        private async Task<bool> UserIdDocumentExist(string idDocument) => await _repository.IdDocumentExist(idDocument);
 
         private async Task<bool> UserIdExist(string id) => await _repository.DocumentExist(id);
 

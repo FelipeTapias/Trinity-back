@@ -6,7 +6,7 @@
     - [Rediscache](#rediscache)
 - [Control de cambios](#control-de-cambios)
 ---
-
+    
 ## Pasos creación Plantila-Andamio
 
 ```mermaid

@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace RestService.Trinity.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class UserController : ControllerBase
     {
         private readonly ILogger<UserController> _logger;
@@ -56,14 +56,14 @@ namespace RestService.Trinity.Controllers
         }
 
         [HttpGet("GetUserByIdDocument", Name = "GetUserByIdDocument")]
-        public async Task<User> GetUserByIdDocument([FromQuery] int idDocument)
+        public async Task<User> GetUserByIdDocument([FromQuery] string idDocument)
         {
             _logger.LogInformation($"Obteniendo usuario con IdDocumento: {idDocument}");
             return await _userService.GetUserByIdDocument(idDocument);
         }
 
         [HttpGet("GetIdByIdDocument", Name = "GetIdByIdDocument")]
-        public async Task<string> GetIdByIdDocument([FromQuery] int idDocument)
+        public async Task<string> GetIdByIdDocument([FromQuery] string idDocument)
         {
             _logger.LogInformation($"Obteniendo id con IdDocumento: {idDocument}");
             return await _userService.GetIdByIdDocument(idDocument);

@@ -20,12 +20,11 @@ namespace Infrastructure
         }
 
         #region Mongo
-        public static IServiceCollection RegisterMongo(this IServiceCollection services, 
-                                                       string collectionName, 
+        public static IServiceCollection RegisterMongo(this IServiceCollection services,
                                                        string databaseName, 
                                                        string connectionString)
         {
-            services.AddSingleton(cfg => new GenericContext(collectionName, connectionString, databaseName));
+            services.AddSingleton(cfg => new GenericContext(connectionString, databaseName));
 
             return services;
         }

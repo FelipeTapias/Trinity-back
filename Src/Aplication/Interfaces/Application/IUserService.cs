@@ -9,7 +9,7 @@ namespace Aplication.Interfaces.Application
         Task<User> GetUserById(string id);
         Task<string> DeleteUserById(string id);
         Task<string> UpdateUserById(string id, User user);
-        Task<User> GetUserByIdDocument(int idDocument);
-        Task<string> GetIdByIdDocument(int idDocument);
+        Task<User> GetUserByIdDocument(string idDocument);
+        Task<string> GetIdByIdDocument(string idDocument);
     }
 }

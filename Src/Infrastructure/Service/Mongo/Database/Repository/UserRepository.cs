@@ -11,7 +11,7 @@ namespace Infrastructure.Service.Mongo.Database.Repository
         private readonly IMongoCollection<BsonDocument> _collection;
 
         public UserRepository(GenericContext context) 
-            => _collection = context.GetCollection();
+            => _collection = context.GetCollectionUsers();
 
         public async Task<string> InsertDocument(TEntity entity)
         {
@@ -65,7 +65,7 @@ namespace Infrastructure.Service.Mongo.Database.Repository
             return id;
         }
 
-        public async Task<TEntity> GetByIdDocument(int idDocument)
+        public async Task<TEntity> GetByIdDocument(string idDocument)
         {
             FilterDefinition<BsonDocument> filter = Builders<BsonDocument>.Filter.Eq("IdDocument", idDocument);
 
@@ -76,7 +76,7 @@ namespace Infrastructure.Service.Mongo.Database.Repository
             return BsonSerializer.Deserialize<TEntity>(result);
         }
 
-        public async Task<string> GetIdByIdDocument(int idDocument)
+        public async Task<string> GetIdByIdDocument(string idDocument)
         {
             FilterDefinition<BsonDocument> filter = Builders<BsonDocument>.Filter.Eq("IdDocument", idDocument);
             ProjectionDefinition<BsonDocument> projection = Builders<BsonDocument>.Projection.Include("_id");
@@ -86,7 +86,7 @@ namespace Infrastructure.Service.Mongo.Database.Repository
             return result["_id"].ToString();
         }
 
-        public async Task<bool> IdDocumentExist(int idDocument)
+        public async Task<bool> IdDocumentExist(string idDocument)
         {
             FilterDefinition<BsonDocument> filter = Builders<BsonDocument>.Filter.Eq("IdDocument", idDocument);
 
