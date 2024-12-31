@@ -30,6 +30,9 @@ builder.Services
                         int.Parse(configuration["AppSettings:dbNumberRedisCache"]))
     .Application();
 
+builder.Services
+    .RegisterCors();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -41,6 +44,8 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+
+app.UseCors("ClientPolicy");
 app.UseAuthorization();
 
 app.MapControllers();

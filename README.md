@@ -3,6 +3,7 @@
 # Contenido
 - [Pasos creación Plantilla-Andamio](#pasos-creación-plantila-andamio)
 - [Infraestuctura](#infraestructura)
+    - [Rediscache](#rediscache)
 - [Control de cambios](#control-de-cambios)
 ---
 
@@ -25,6 +26,12 @@ E1 --> |echo > Directory.Build y echo > Directory.Packages| E2[Esto sigue...]
  - .Net8
  - MongoDB
  - RedisCache
+
+### RedisCache
+Comando para correr el servidor de rediscache localmente:   
+```
+redis-server.exe redis.windows.conf
+```
 
 ## Control de cambios
 | Nombre editor | Fecha actualizacion |
