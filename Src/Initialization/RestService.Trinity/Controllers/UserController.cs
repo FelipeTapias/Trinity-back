@@ -7,8 +7,6 @@ namespace RestService.Trinity.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class UserController : ControllerBase
-    [Route("[controller]")]
     public class UserController : BaseController
     {
         private readonly ILogger<UserController> _logger;
@@ -47,8 +45,7 @@ namespace RestService.Trinity.Controllers
             return await HandleResponse(async () =>
             {
                 return await _userService.GetUserById(id);
-            }, $"Usuario con Id {id} obtenido correctamente");
-            
+            }, $"Usuario con Id {id} obtenido correctamente");  
         }
 
         [HttpDelete("DeleteUserById", Name = "DeleteUserById")]
