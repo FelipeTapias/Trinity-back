@@ -1,72 +1,90 @@
 using Aplication.Interfaces.Application;
 using Core.Entities;
 using Microsoft.AspNetCore.Mvc;
+using RestService.Trinity.Controllers.Base;
 
 namespace RestService.Trinity.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
     public class UserController : ControllerBase
+    [Route("[controller]")]
+    public class UserController : BaseController
     {
         private readonly ILogger<UserController> _logger;
         private readonly IUserService _userService;
 
-        public UserController(ILogger<UserController> logger, IUserService userService)
+        public UserController(ILogger<UserController> logger, IUserService userService): base(logger)
         {
             _logger = logger;
             _userService = userService;
         }
 
         [HttpPost("CreateUser", Name = "PostUser")]
-        public async Task<string> Post(User user)
+        public async Task<IActionResult> Post(User user)
         {
             _logger.LogInformation("Creando el usuario");
-            string idReturn = await _userService.CreateUser(user);
-            _logger.LogInformation($"Se creo el usuario con el ID: {idReturn}");
-            return idReturn;
+            return await HandleResponse(async () => 
+            {
+                return await _userService.CreateUser(user);
+            }, "Usuario creado correctamente");
         }
 
         [HttpGet("GetAllUsers", Name = "GetAllUsers")]
-        public async Task<IEnumerable<User>> GetAllUser()
+        public async Task<IActionResult> GetAllUser()
         {
             _logger.LogInformation("Obteniendo todos los usuarios");
-            return await _userService.GetAllUser();
+            return await HandleResponse(async () => 
+            {                
+                return await _userService.GetAllUser();
+            }, "Usuarios obtenidos correctamente");
         }
 
         [HttpGet("GetUserById", Name = "GetUserById")]
-        public async Task<User> GetUserById([FromQuery] string id)
+        public async Task<IActionResult> GetUserById([FromQuery] string id)
         {
             _logger.LogInformation($"Obteneindo usuario con id: {id}");
-            return await _userService.GetUserById(id);
+            return await HandleResponse(async () =>
+            {
+                return await _userService.GetUserById(id);
+            }, $"Usuario con Id {id} obtenido correctamente");
+            
         }
 
         [HttpDelete("DeleteUserById", Name = "DeleteUserById")]
-        public async Task<string> DeleteUserById([FromQuery] string id)
+        public async Task<IActionResult> DeleteUserById([FromQuery] string id)
         {
             _logger.LogInformation($"Eliminando usuario con id: {id}");
-            return await _userService.DeleteUserById(id);
+            return await HandleResponse(async () => {
+                return await _userService.DeleteUserById(id);
+            }, $"Usuario con Id {id} eliminado correctamente");
         }
 
         [HttpPut("EditUserById", Name = "EditUserById")]
-        public async Task<string> UpdateUserById(string id, User user)
+        public async Task<IActionResult> UpdateUserById(string id, User user)
         {
             _logger.LogInformation($"Actualizando usuario con id: {id}");
-            await _userService.UpdateUserById(id, user);
-            return id;
+            return await HandleResponse(async () => {
+                return await _userService.UpdateUserById(id, user);
+            }, $"Usuario con Id {id} actualizado correctamente");
         }
 
         [HttpGet("GetUserByIdDocument", Name = "GetUserByIdDocument")]
-        public async Task<User> GetUserByIdDocument([FromQuery] string idDocument)
+        public async Task<IActionResult> GetUserByIdDocument([FromQuery] string idDocument)
         {
             _logger.LogInformation($"Obteniendo usuario con IdDocumento: {idDocument}");
-            return await _userService.GetUserByIdDocument(idDocument);
+            return await HandleResponse(async () => {
+                return await _userService.GetUserByIdDocument(idDocument);
+            }, $"Usuario con IdDocument {idDocument} obtenido correctamente");
         }
 
         [HttpGet("GetIdByIdDocument", Name = "GetIdByIdDocument")]
-        public async Task<string> GetIdByIdDocument([FromQuery] string idDocument)
+        public async Task<IActionResult> GetIdByIdDocument([FromQuery] string idDocument)
         {
             _logger.LogInformation($"Obteniendo id con IdDocumento: {idDocument}");
-            return await _userService.GetIdByIdDocument(idDocument);
+            return await HandleResponse(async () => {
+                return await _userService.GetIdByIdDocument(idDocument);
+            }, $"Id de usuario con IdDocument {idDocument} obtenido correctamente");
         }
     }
 }

@@ -4,6 +4,7 @@
 - [Pasos creación Plantilla-Andamio](#pasos-creación-plantila-andamio)
 - [Infraestuctura](#infraestructura)
     - [Rediscache](#rediscache)
+- [Respuesta API](#respuesta-api)
 - [Control de cambios](#control-de-cambios)
 ---
     
@@ -27,6 +28,16 @@ E1 --> |echo > Directory.Build y echo > Directory.Packages| E2[Esto sigue...]
  - MongoDB
  - RedisCache
 
+## Respuesta API
+```json
+{
+    "success": true, // Resultado del proceso
+    "message": "Id de usuario con IdDocument 1000758512 obtenido correctamente", // Mensaje final del proceso
+    "statusCode": 200, // Codigo estado del proceso
+    "data": (string, objetos, arrays) // Este dato es un generico y puede traer cualquier resultado que la operación requiera
+}
+``` 
+
 ### RedisCache
 Comando para correr el servidor de rediscache localmente:   
 ```
@@ -39,5 +50,6 @@ redis-server.exe redis.windows.conf
 | Anfeta        | 2024/12/04          |
 | Anfeta        | 2024/12/16          |
 | Anfeta        | 2024/12/20          |
+| Anfeta        | 2024/12/26          |
 
 [🔙 Contenido](#contenido) 
