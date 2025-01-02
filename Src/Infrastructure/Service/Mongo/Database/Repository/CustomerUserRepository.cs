@@ -6,12 +6,12 @@ using MongoDB.Driver;
 
 namespace Infrastructure.Service.Mongo.Database.Repository
 {
-    public class UserRepository<TEntity>: IUserRepository<TEntity> where TEntity : class
+    public class CustomerUserRepository<TEntity>: ICustomerUserRepository<TEntity> where TEntity : class
     {
         private readonly IMongoCollection<BsonDocument> _collection;
 
-        public UserRepository(GenericContext context) 
-            => _collection = context.GetCollectionUsers();
+        public CustomerUserRepository(GenericContext context) 
+            => _collection = context.GetCollectionCustomerUsers();
 
         public async Task<string> InsertDocument(TEntity entity)
         {
@@ -33,9 +33,9 @@ namespace Infrastructure.Service.Mongo.Database.Repository
             return entities;
         }
 
-        public async Task<TEntity> GetById(string id) 
+        public async Task<TEntity> GetById(string customerId) 
         {
-            FilterDefinition<BsonDocument> filter = Builders<BsonDocument>.Filter.Eq("_id", new ObjectId(id));
+            FilterDefinition<BsonDocument> filter = Builders<BsonDocument>.Filter.Eq("CustomerId", customerId);
 
             BsonDocument result = await _collection.Find(filter).FirstOrDefaultAsync();
 
@@ -44,30 +44,29 @@ namespace Infrastructure.Service.Mongo.Database.Repository
             return BsonSerializer.Deserialize<TEntity>(result);
         }
 
-        public async Task<string> DeleteById(string id)
+        public async Task<string> DeleteById(string customerId)
         {
-            FilterDefinition<BsonDocument> filter = Builders<BsonDocument>.Filter.Eq("_id", new ObjectId(id));
+            FilterDefinition<BsonDocument> filter = Builders<BsonDocument>.Filter.Eq("CustomerId", customerId);
 
             await _collection.DeleteOneAsync(filter);
 
-            return id;
+            return customerId;
         }
 
-        public async Task<string> UpdateDocument(string id, TEntity entity)
+        public async Task<string> UpdateDocument(string customerId, TEntity entity)
         {
-            FilterDefinition<BsonDocument> filter = Builders<BsonDocument>.Filter.Eq("_id", new ObjectId(id));
+            FilterDefinition<BsonDocument> filter = Builders<BsonDocument>.Filter.Eq("CustomerId", customerId);
 
             BsonDocument doc = entity.ToBsonDocument();
-            doc["_id"] = ObjectId.Parse(id);
-
+   
             await _collection.ReplaceOneAsync(filter, doc);
 
-            return id;
+            return customerId;
         }
 
-        public async Task<TEntity> GetByIdDocument(string idDocument)
+        public async Task<TEntity> GetByIdDocument(string documentNumber)
         {
-            FilterDefinition<BsonDocument> filter = Builders<BsonDocument>.Filter.Eq("IdDocument", idDocument);
+            FilterDefinition<BsonDocument> filter = Builders<BsonDocument>.Filter.Eq("DocumentNumber", documentNumber);
 
             BsonDocument result = await _collection.Find(filter).FirstOrDefaultAsync();
 
@@ -76,26 +75,26 @@ namespace Infrastructure.Service.Mongo.Database.Repository
             return BsonSerializer.Deserialize<TEntity>(result);
         }
 
-        public async Task<string> GetIdByIdDocument(string idDocument)
+        public async Task<string> GetIdByIdDocument(string documentNumber)
         {
-            FilterDefinition<BsonDocument> filter = Builders<BsonDocument>.Filter.Eq("IdDocument", idDocument);
-            ProjectionDefinition<BsonDocument> projection = Builders<BsonDocument>.Projection.Include("_id");
+            FilterDefinition<BsonDocument> filter = Builders<BsonDocument>.Filter.Eq("DocumentNumber", documentNumber);
+            ProjectionDefinition<BsonDocument> projection = Builders<BsonDocument>.Projection.Include("CustomerId");
 
             BsonDocument result = await _collection.Find(filter).Project(projection).FirstOrDefaultAsync();
 
-            return result["_id"].ToString();
+            return result["CustomerId"].ToString();
         }
 
-        public async Task<bool> IdDocumentExist(string idDocument)
+        public async Task<bool> IdDocumentExist(string documentNumber)
         {
-            FilterDefinition<BsonDocument> filter = Builders<BsonDocument>.Filter.Eq("IdDocument", idDocument);
+            FilterDefinition<BsonDocument> filter = Builders<BsonDocument>.Filter.Eq("DocumentNumber", documentNumber);
 
             return await _collection.CountDocumentsAsync(filter) > 0;
         }
 
-        public async Task<bool> DocumentExist(string id)
+        public async Task<bool> DocumentExist(string customerId)
         {
-            FilterDefinition<BsonDocument> filter = Builders<BsonDocument>.Filter.Eq("_id", new ObjectId(id));
+            FilterDefinition<BsonDocument> filter = Builders<BsonDocument>.Filter.Eq("CustomerId", customerId);
 
             return await _collection.CountDocumentsAsync(filter) > 0;
         }

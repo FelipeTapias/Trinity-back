@@ -14,8 +14,8 @@ namespace Infrastructure.Service.Mongo.Database.Context
             _database = client.GetDatabase(databaseName);
         }
 
-        public IMongoCollection<BsonDocument> GetCollectionUsers() 
-            =>_database.GetCollection<BsonDocument>("Users");
+        public IMongoCollection<BsonDocument> GetCollectionCustomerUsers() 
+            =>_database.GetCollection<BsonDocument>("Customers");
 
         public IMongoCollection<BsonDocument> GetCollectionProducts()
             => _database.GetCollection<BsonDocument>("Products");

@@ -8,7 +8,7 @@ namespace Aplication
     {
         public static IServiceCollection Application(this IServiceCollection services) 
         {
-            services.AddScoped<IUserService, UserService>();
+            services.AddScoped<ICustomerUserService, CustomerUserService>();
             services.AddScoped<IProductService, ProductService>();
 
             return services;

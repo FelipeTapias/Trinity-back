@@ -13,7 +13,7 @@ namespace Infrastructure
         
         public static IServiceCollection Infrastructure(this IServiceCollection services)
         {
-            services.AddScoped<IUserRepository<User>, UserRepository<User>>();
+            services.AddScoped<ICustomerUserRepository<CustomerUser>, CustomerUserRepository<CustomerUser>>();
             services.AddScoped<IProductRepository<Product>, ProductRepository<Product>>();
             services.AddScoped<IUserCacheRepository, UserCacheAdapter>();
 

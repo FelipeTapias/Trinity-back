@@ -10,7 +10,7 @@ namespace Aplication.Service
 
         public async Task<string> CreateProduct(Product product)
         {
-            product.IdProduct = Guid.NewGuid().ToString();
+            product.ProductId = Guid.NewGuid().ToString();
 
             string idProduct = await _repository.InsertProduct(product);
 
