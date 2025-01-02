@@ -18,7 +18,7 @@ namespace Infrastructure.Service.Mongo.Database.Repository
             BsonDocument doc = entity.ToBsonDocument();
             await _collection.InsertOneAsync(doc);
 
-            return doc["_id"].AsObjectId.ToString();
+            return doc["CustomerId"].ToString();
         }
 
         public async Task<IEnumerable<TEntity>> GetAllAsync() 

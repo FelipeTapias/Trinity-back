@@ -1,4 +1,4 @@
-﻿namespace Core.Emuns
+﻿namespace Core.Enums
 {
     public enum ProductTypes
     {

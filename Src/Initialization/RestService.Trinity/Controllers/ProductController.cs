@@ -20,11 +20,21 @@ namespace RestService.Trinity.Controllers
         [HttpPost("CreateProduct", Name = "CreateProduct")]
         public async Task<IActionResult> CreateProduct([FromBody] Product product)
         {
-            _logger.LogInformation("Obteniendo todos los productos");
+            _logger.LogInformation("Creando Producto");
             return await HandleResponse(async () =>
             {
                 return await _productService.CreateProduct(product);
-            }, "Usuarios obtenidos correctamente");
+            }, "Producto creado correctamente");
+        }
+
+        [HttpGet("GetAllProductsByCustomer", Name = "GetAllProductsByCustomer")]
+        public async Task<IActionResult> GetAllProductsByCustomer([FromQuery] string customerId)
+        {
+            _logger.LogInformation($"Obteneido Productos del cliente: {customerId}");
+            return await HandleResponse(async () =>
+            {
+                return await _productService.GetAllProductByCustomerId(customerId);
+            }, "Productos obtenidos correctamente");
         }
     }
 }
