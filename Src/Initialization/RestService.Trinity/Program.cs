@@ -23,12 +23,14 @@ builder.Host
 
 builder.Services
     .Infrastructure()
-    .RegisterMongo(configuration["AppSettings:CollectionName"],
-                   configuration["AppSettings:DatabaseName"],
+    .RegisterMongo(configuration["AppSettings:DatabaseName"],
                    configuration["AppSettings:ConnectionStringMongo"])
     .RegisterRedisCache(configuration["AppSettings:ConnectionStringRedisCache"],
                         int.Parse(configuration["AppSettings:dbNumberRedisCache"]))
     .Application();
+
+builder.Services
+    .RegisterCors();
 
 var app = builder.Build();
 
@@ -41,6 +43,8 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+
+app.UseCors("ClientPolicy");
 app.UseAuthorization();
 
 app.MapControllers();

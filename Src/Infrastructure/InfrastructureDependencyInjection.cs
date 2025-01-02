@@ -14,18 +14,18 @@ namespace Infrastructure
         public static IServiceCollection Infrastructure(this IServiceCollection services)
         {
             services.AddScoped<IUserRepository<User>, UserRepository<User>>();
+            services.AddScoped<IProductRepository<Product>, ProductRepository<Product>>();
             services.AddScoped<IUserCacheRepository, UserCacheAdapter>();
 
             return services;
         }
 
         #region Mongo
-        public static IServiceCollection RegisterMongo(this IServiceCollection services, 
-                                                       string collectionName, 
+        public static IServiceCollection RegisterMongo(this IServiceCollection services,
                                                        string databaseName, 
                                                        string connectionString)
         {
-            services.AddSingleton(cfg => new GenericContext(collectionName, connectionString, databaseName));
+            services.AddSingleton(cfg => new GenericContext(connectionString, databaseName));
 
             return services;
         }

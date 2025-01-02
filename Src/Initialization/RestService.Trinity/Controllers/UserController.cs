@@ -6,7 +6,7 @@ using RestService.Trinity.Controllers.Base;
 namespace RestService.Trinity.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class UserController : BaseController
     {
         private readonly ILogger<UserController> _logger;
@@ -45,8 +45,7 @@ namespace RestService.Trinity.Controllers
             return await HandleResponse(async () =>
             {
                 return await _userService.GetUserById(id);
-            }, $"Usuario con Id {id} obtenido correctamente");
-            
+            }, $"Usuario con Id {id} obtenido correctamente");  
         }
 
         [HttpDelete("DeleteUserById", Name = "DeleteUserById")]
@@ -68,7 +67,7 @@ namespace RestService.Trinity.Controllers
         }
 
         [HttpGet("GetUserByIdDocument", Name = "GetUserByIdDocument")]
-        public async Task<IActionResult> GetUserByIdDocument([FromQuery] int idDocument)
+        public async Task<IActionResult> GetUserByIdDocument([FromQuery] string idDocument)
         {
             _logger.LogInformation($"Obteniendo usuario con IdDocumento: {idDocument}");
             return await HandleResponse(async () => {
@@ -77,7 +76,7 @@ namespace RestService.Trinity.Controllers
         }
 
         [HttpGet("GetIdByIdDocument", Name = "GetIdByIdDocument")]
-        public async Task<IActionResult> GetIdByIdDocument([FromQuery] int idDocument)
+        public async Task<IActionResult> GetIdByIdDocument([FromQuery] string idDocument)
         {
             _logger.LogInformation($"Obteniendo id con IdDocumento: {idDocument}");
             return await HandleResponse(async () => {
