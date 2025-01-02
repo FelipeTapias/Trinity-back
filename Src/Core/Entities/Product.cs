@@ -4,8 +4,8 @@ namespace Core.Entities
 {
     public class Product
     {
-        public Guid Id { get; set; }
-        public Guid IdUser { get; set; }
+        public string IdProduct { get; set; }
+        public string IdUser { get; set; }
         public ProductTypes Type { get; set; }
         public ProductStatus Status { get; set; }
         public decimal Price { get; set; }
