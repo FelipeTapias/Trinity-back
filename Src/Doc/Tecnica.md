@@ -24,17 +24,18 @@ classDiagram
     
     Product *-- Customer : composition
     Product : +String productId
-    Product : +String type
-    Product : +String status
-    Product : +String productType
+    Product : +String customerId
+    Product : +ProductTypes type
+    Product : +ProductStatus status
     Product : +String description
-    Product : +String value
+    Product : +String price
     Product : +String balance
     Product : +Date createDate
 
     Payment *-- Product : composition
     Payment : +String paymentId
     Payment : +String productId
+    Payment : +PaymentTypes type
     Payment : +String value
     Payment : +Date createDate
 
