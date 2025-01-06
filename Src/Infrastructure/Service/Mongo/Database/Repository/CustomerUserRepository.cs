@@ -6,19 +6,16 @@ using MongoDB.Driver;
 
 namespace Infrastructure.Service.Mongo.Database.Repository
 {
-    public class CustomerUserRepository<TEntity>: ICustomerUserRepository<TEntity> where TEntity : class
+    public class CustomerUserRepository<TEntity>(GenericContext context) : ICustomerUserRepository<TEntity> where TEntity : class
     {
-        private readonly IMongoCollection<BsonDocument> _collection;
-
-        public CustomerUserRepository(GenericContext context) 
-            => _collection = context.GetCollectionCustomerUsers();
+        private readonly IMongoCollection<BsonDocument> _collection = context.GetCollectionCustomerUsers();
 
         public async Task<string> InsertDocument(TEntity entity)
         {
             BsonDocument doc = entity.ToBsonDocument();
             await _collection.InsertOneAsync(doc);
 
-            return doc["_id"].AsObjectId.ToString();
+            return doc["CustomerId"].ToString();
         }
 
         public async Task<IEnumerable<TEntity>> GetAllAsync() 

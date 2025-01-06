@@ -20,3 +20,6 @@
 | Anfeta | 2024/12/30  | Se hace configuracion en el contexto de mongo para obtener n colecciones, además, se agrega la nueva clase producto y para finalizar se agregan las politicas de CORS | 1.0.0
 | Anfeta | 2024/01/01  | Creación de Diagrama de clases en documentación técnica | 1.0.0
 | Anfeta | 2024/01/01  | Segregación de la clase usuario con administrador y cliente, tambien se ajusta el controlador de usuario para que sea funcional solo para clientes | 1.0.0
+| Anfeta | 2024/01/02  | Creacion de de productos por cliente y obtencion de productos por cliente | 1.0.0
+| Anfeta | 2024/01/05  | Finalizacion servicio de producto y cambio de estado y deuda del mismo | 1.0.0
+| Anfeta | 2024/01/05  | Creacion del servicio de pago y actalizacion de la deuda en el producto | 1.0.0

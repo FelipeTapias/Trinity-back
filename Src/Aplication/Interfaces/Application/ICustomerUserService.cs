@@ -11,5 +11,6 @@ namespace Aplication.Interfaces.Application
         Task<string> UpdateUserById(string customerId, CustomerUser user);
         Task<CustomerUser> GetUserByIdDocument(string documentNumber);
         Task<string> GetIdByIdDocument(string documentNumber);
+        Task<bool> UserCustomerIdExist(string customerId);
     }
 }

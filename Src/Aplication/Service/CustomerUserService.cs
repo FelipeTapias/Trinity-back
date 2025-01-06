@@ -93,9 +93,9 @@ namespace Aplication.Service
             return await _repository.GetIdByIdDocument(documentNumber);
         }
 
-        private async Task<bool> UserIdDocumentExist(string documentNumber) => await _repository.IdDocumentExist(documentNumber);
+        public async Task<bool> UserCustomerIdExist(string customerId) => await _repository.DocumentExist(customerId);
 
-        private async Task<bool> UserCustomerIdExist(string customerId) => await _repository.DocumentExist(customerId);
+        private async Task<bool> UserIdDocumentExist(string documentNumber) => await _repository.IdDocumentExist(documentNumber);
 
         private async Task<string> ComprobarCache() => await _cacheRepository.GetUserlist("Trinity_users");
         

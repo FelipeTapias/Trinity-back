@@ -15,6 +15,7 @@ namespace Infrastructure
         {
             services.AddScoped<ICustomerUserRepository<CustomerUser>, CustomerUserRepository<CustomerUser>>();
             services.AddScoped<IProductRepository<Product>, ProductRepository<Product>>();
+            services.AddScoped<IPaymentRepository<Payment>, PaymentRepository<Payment>>();
             services.AddScoped<IUserCacheRepository, UserCacheAdapter>();
 
             return services;

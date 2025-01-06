@@ -1,4 +1,4 @@
-﻿using Core.Emuns;
+﻿using Core.Enums;
 
 namespace Core.Entities
 {
