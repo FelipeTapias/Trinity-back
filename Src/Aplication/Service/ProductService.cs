@@ -48,23 +48,36 @@ namespace Aplication.Service
 
         public async Task<bool> UpdateBalanceProduct(string productId, decimal value)
         {
-            await ProductExist(productId);
-
             return await _repository.UpdateBalanceProduct(productId, value);
+        }
+
+        public async Task<bool> ProductExist(string productId)
+        {
+            if (!await _repository.DocumentExist(productId))
+                throw new Exception($"El producto: {productId} no existe");
+
+            return true;
+        }
+
+        public async Task<bool> IsPaymentValid(string productId, decimal value)
+        {
+            decimal balance = await GetBalanceByProductId(productId);
+
+            if (value > balance || value == 0)
+                return false;
+
+            return true;
+        }
+
+        public async Task<decimal> GetBalanceByProductId(string productId)
+        {
+            return await _repository.GetBalanceByProductId(productId);
         }
 
         private async Task<bool> CustomerExist(string customerId)
         {
             if (!await _customerUserService.UserCustomerIdExist(customerId))
                 throw new Exception($"El cliente con CustomerId {customerId} no existe");
-
-            return true;
-        }
-
-        private async Task<bool> ProductExist(string productId)
-        {
-            if (!await _repository.DocumentExist(productId))
-                throw new Exception($"El producto: {productId} no existe");
 
             return true;
         }

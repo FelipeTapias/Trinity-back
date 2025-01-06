@@ -7,12 +7,9 @@ using MongoDB.Driver;
 
 namespace Infrastructure.Service.Mongo.Database.Repository
 {
-    public class ProductRepository<TEntity>: IProductRepository<TEntity> where TEntity : class
+    public class ProductRepository<TEntity>(GenericContext context) : IProductRepository<TEntity> where TEntity : class
     {
-        private readonly IMongoCollection<BsonDocument> _collection;
-
-        public ProductRepository(GenericContext context) => 
-            _collection = context.GetCollectionProducts();
+        private readonly IMongoCollection<BsonDocument> _collection = context.GetCollectionProducts();
 
         public async Task<string> InsertProduct(TEntity entity)
         {
@@ -61,6 +58,16 @@ namespace Infrastructure.Service.Mongo.Database.Repository
             UpdateResult result = await _collection.UpdateOneAsync(filter, update);
 
             return result.ModifiedCount > 0;
+        }
+
+        public async Task<decimal> GetBalanceByProductId(string productId)
+        {
+            FilterDefinition<BsonDocument> filter = Builders<BsonDocument>.Filter.Eq("ProductId", productId);
+            ProjectionDefinition<BsonDocument> projection = Builders<BsonDocument>.Projection.Include("Balance");
+
+            BsonDocument result = await _collection.Find(filter).Project(projection).FirstOrDefaultAsync();
+
+            return decimal.Parse(result["Balance"].ToString());
         }
 
     }

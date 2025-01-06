@@ -9,5 +9,6 @@ namespace Aplication.Interfaces.Infrastructure
         Task UpdateStatusProduct(string productId, StatusProduct entity);
         Task<bool> DocumentExist(string productId);
         Task<bool> UpdateBalanceProduct(string productId, decimal balance);
+        Task<decimal> GetBalanceByProductId(string productId);
     }
 }

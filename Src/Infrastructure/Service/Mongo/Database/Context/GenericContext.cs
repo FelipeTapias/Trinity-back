@@ -19,5 +19,8 @@ namespace Infrastructure.Service.Mongo.Database.Context
 
         public IMongoCollection<BsonDocument> GetCollectionProducts()
             => _database.GetCollection<BsonDocument>("Products");
+
+        public IMongoCollection<BsonDocument> GetCollectionPayments()
+            => _database.GetCollection<BsonDocument>("Payments");
     }
 }
