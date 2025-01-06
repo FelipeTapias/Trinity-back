@@ -7,5 +7,6 @@ namespace Aplication.Interfaces.Application
         Task<string> CreateProduct(Product product);
         Task<IEnumerable<Product>> GetAllProductByCustomerId(string customerId);
         Task<string> UpdateStatusProduct(string productId, StatusProduct statusProduct);
+        Task<bool> UpdateBalanceProduct(string productId, decimal value);
     }
 }

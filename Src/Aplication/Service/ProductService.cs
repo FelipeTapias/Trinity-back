@@ -46,7 +46,7 @@ namespace Aplication.Service
             return productId;
         }
 
-        public async Task<bool> UpdatePaymentProduct(string productId, decimal value)
+        public async Task<bool> UpdateBalanceProduct(string productId, decimal value)
         {
             await ProductExist(productId);
 
