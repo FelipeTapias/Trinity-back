@@ -36,5 +36,15 @@ namespace RestService.Trinity.Controllers
                 return await _productService.GetAllProductByCustomerId(customerId);
             }, "Productos obtenidos correctamente");
         }
+
+        [HttpPatch("UpdateStatusProduct", Name = "UpdateStatusProduct")]
+        public async Task<IActionResult> UpdateStatusProduct(string productId, StatusProduct statusProduct)
+        {
+            _logger.LogInformation($"Actualizando Estado Producto: {productId}");
+            return await HandleResponse(async () =>
+            {
+                return await _productService.UpdateStatusProduct(productId, statusProduct);
+            }, $"Producto: {productId} actualizado correctamente");
+        }
     }
 }
