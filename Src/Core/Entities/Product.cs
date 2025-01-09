@@ -12,5 +12,10 @@ namespace Core.Entities
         public decimal Balance { get; set; }
         public DateTime CreateDate { get; set; }
         public List<StatusProduct> Statuses { get; set; }
+
+        public StatusProduct GetLastStatus()
+        {
+            return Statuses.OrderByDescending(x => x.CreateDate).FirstOrDefault();
+        }
     }
 }

@@ -33,6 +33,17 @@ namespace Infrastructure.Service.Mongo.Database.Repository
             return entities;
         }
 
+        public async Task<TEntity> GetProductByProductId(string productId)
+        {
+            FilterDefinition<BsonDocument> filter = Builders<BsonDocument>.Filter.Eq("Product", productId);
+
+            BsonDocument result = await _collection.Find(filter).FirstOrDefaultAsync();
+
+            result.Remove("_id");
+
+            return BsonSerializer.Deserialize<TEntity>(result);
+        }
+
         public async Task UpdateStatusProduct(string productId, StatusProduct entity)
         {
             FilterDefinition<BsonDocument> filter = Builders<BsonDocument>.Filter.Eq("ProductId", productId);

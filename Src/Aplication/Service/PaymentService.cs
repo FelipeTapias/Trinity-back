@@ -13,6 +13,9 @@ namespace Aplication.Service
         {
             await _productService.ProductExist(payment.ProductId);
 
+            if(await _productService.IsProductCanceled(payment.ProductId))
+                throw new Exception("El producto  se encuentra cancelado");
+
             if (!await _productService.IsPaymentValid(payment.ProductId, payment.Value))
                 throw new Exception("El pago a realizar no es valido");
 
