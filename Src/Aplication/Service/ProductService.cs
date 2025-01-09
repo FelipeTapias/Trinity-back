@@ -39,6 +39,9 @@ namespace Aplication.Service
 
         public async Task<string> UpdateStatusProduct(string productId, StatusProduct statusProduct)
         {
+            if (!Enum.IsDefined(typeof(ProductStatus), statusProduct.Status))
+                throw new Exception($"Estado producto: {statusProduct.Status} no es válido");
+
             await ProductExist(productId);
 
             statusProduct.CreateDate = DateTime.UtcNow;
@@ -72,6 +75,16 @@ namespace Aplication.Service
         public async Task<decimal> GetBalanceByProductId(string productId)
         {
             return await _repository.GetBalanceByProductId(productId);
+        }
+
+        public async Task<bool> IsProductCanceled(string productId)
+        {
+            Product product = await _repository.GetProductByProductId(productId);
+
+            if (product.GetLastStatus().Status == ProductStatus.Canceled)
+                return true;
+
+            return false;
         }
 
         private async Task<bool> CustomerExist(string customerId)

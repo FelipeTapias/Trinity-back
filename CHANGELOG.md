@@ -23,3 +23,4 @@
 | Anfeta | 2024/01/02  | Creacion de de productos por cliente y obtencion de productos por cliente | 1.0.0
 | Anfeta | 2024/01/05  | Finalizacion servicio de producto y cambio de estado y deuda del mismo | 1.0.0
 | Anfeta | 2024/01/05  | Creacion del servicio de pago y actalizacion de la deuda en el producto | 1.0.0
+| Anfeta | 2024/01/09  | Validacion de los enums de estado del producto y validacion que no se pueda pagar un producto cancelado | 1.0.0

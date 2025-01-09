@@ -11,5 +11,6 @@ namespace Aplication.Interfaces.Application
         Task<bool> ProductExist(string productId);
         Task<bool> IsPaymentValid(string productId, decimal value);
         Task<decimal> GetBalanceByProductId(string productId);
+        Task<bool> IsProductCanceled(string productId);
     }
 }

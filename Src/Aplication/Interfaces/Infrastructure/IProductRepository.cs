@@ -6,6 +6,7 @@ namespace Aplication.Interfaces.Infrastructure
     {
         Task<string> InsertProduct(TEntity entity);
         Task<IEnumerable<TEntity>> GetAllProductsByCustomer(string customerId);
+        Task<TEntity> GetProductByProductId(string productId);
         Task UpdateStatusProduct(string productId, StatusProduct entity);
         Task<bool> DocumentExist(string productId);
         Task<bool> UpdateBalanceProduct(string productId, decimal balance);
