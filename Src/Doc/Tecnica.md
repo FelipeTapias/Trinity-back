@@ -15,7 +15,7 @@ classDiagram
 
     Administrator : +String adminId
     Administrator : +String password
-    Administrator : +login()
+    Administrator : +ToString()
 
     Customer : +String customerId
     Customer : +String documentType
