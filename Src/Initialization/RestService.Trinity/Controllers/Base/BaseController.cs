@@ -13,6 +13,7 @@ namespace RestService.Trinity.Controllers.Base
             try
             {
                 T data = await func();
+
                 return CreateResponse(data, successMessage);
             }
             catch (Exception ex)

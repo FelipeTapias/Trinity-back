@@ -1,11 +1,13 @@
 ﻿using Aplication.Interfaces.Application;
 using Core.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RestService.Trinity.Controllers.Base;
 
 namespace RestService.Trinity.Controllers
 {
     [Route("api/[controller]")]
+    [Authorize]
     [ApiController]
     public class ProductController : BaseController
     {

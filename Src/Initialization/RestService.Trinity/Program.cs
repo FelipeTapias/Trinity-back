@@ -30,7 +30,10 @@ builder.Services
     .Application();
 
 builder.Services
-    .RegisterCors();
+    .RegisterCors()
+    .RegisterJwtToken(configuration["JWT:Key"],
+                          int.Parse(configuration["JWT:MinutesTimeToExpire"]))
+    .RegisterAuthentication(configuration["JWT:Key"]);
 
 var app = builder.Build();
 
@@ -45,6 +48,7 @@ app.UseHttpsRedirection();
 
 
 app.UseCors("ClientPolicy");
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

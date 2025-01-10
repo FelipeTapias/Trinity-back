@@ -22,5 +22,8 @@ namespace Infrastructure.Service.Mongo.Database.Context
 
         public IMongoCollection<BsonDocument> GetCollectionPayments()
             => _database.GetCollection<BsonDocument>("Payments");
+
+        public IMongoCollection<BsonDocument> GetCollectionAdminUsers()
+            => _database.GetCollection<BsonDocument>("AdminUsers");
     }
 }
